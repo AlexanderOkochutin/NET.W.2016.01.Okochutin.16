@@ -309,6 +309,44 @@ namespace Task01.ORM
             }
         }
 
+        public static SellPointReport GetReportFromSellPoint(string sellPointTitle, DateTime starTime, DateTime endTime)
+        {
+            SellPointReport report = new SellPointReport();
+            using (var context = new ShawarmaContext())
+            {
+                var sellPoint = context.SellingPoints.FirstOrDefault(sp => sp.ShawarmaTitle == sellPointTitle);
+                if (sellPoint == null)
+                {
+                    throw new ArgumentException("no such sellpoint");
+                }
+                report.TitleOfSellingPoint = sellPointTitle;
+                foreach (var seller in sellPoint.Sellers)
+                {
+                    report.SellerName.Add(seller.SellerName);
+                }
+                foreach (var seller in sellPoint.Sellers)
+                {
+                    foreach (var orderHeader in seller.OrderHeaders)
+                    {
+                        if (orderHeader.OrderDate < endTime && orderHeader.OrderDate > starTime)
+                        {
+                            report.NumberOfOders++;
+                            foreach (var orderDetail in orderHeader.OrderDetails)
+                            {
+                                foreach (var priceController in orderDetail.Shawarma.PriceControllers)
+                                {
+                                    report.Profit += priceController.Price;
+                                }
+                            }
+                        }
+                    }
+                }
+                report.Address = sellPoint.Address;
+                report.SellingPointCategoryName = sellPoint.SellingPointCategory.SellingPointCategoryName;
+            }
+            return report;
+        }
+
         /// <summary>
         /// SaveChanges in context
         /// </summary>
