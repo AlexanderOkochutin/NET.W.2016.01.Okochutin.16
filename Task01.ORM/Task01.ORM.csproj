@@ -71,6 +71,7 @@
     <Compile Include="Seller.cs">
       <DependentUpon>ShawarmaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="SellerReport.cs" />
     <Compile Include="SellingPoint.cs">
       <DependentUpon>ShawarmaModel.tt</DependentUpon>
     </Compile>

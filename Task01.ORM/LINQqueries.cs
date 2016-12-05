@@ -347,6 +347,28 @@ namespace Task01.ORM
             return report;
         }
 
+        public static SellerReport GetSellerReport(DateTime starTime, DateTime endTime)
+        {
+            SellerReport report = new SellerReport();
+            using (var context = new ShawarmaContext())
+            {
+                foreach (var seller in context.Sellers)
+                {
+                    report.SellersNames.Add(seller.SellerName);
+                    report.SellPOintsTitle.Add(seller.SellingPoint.ShawarmaTitle);
+                    int time = 0;
+                    foreach (var orderHeader in seller.OrderHeaders)
+                    {
+                        foreach (var orderDetail in orderHeader.OrderDetails)
+                        {
+                            time += orderDetail.Shawarma.CookingTime;
+                        }
+                    }
+                    report.CookingTime.Add(time);                  
+                }
+            }
+            return report;
+        }
         /// <summary>
         /// SaveChanges in context
         /// </summary>
