@@ -10,6 +10,13 @@ namespace Task01.ORM
     {
         public List<string> SellersNames { get; set; }
         public List<string> SellPOintsTitle { get; set; }
-        public List<int> CookingTime { get; set; } 
+        public List<int> CookingTime { get; set; }
+
+        public SellerReport()
+        {
+            SellersNames = new List<string>();
+            SellPOintsTitle = new List<string>();
+            CookingTime = new List<int>();
+        }
     }
 }

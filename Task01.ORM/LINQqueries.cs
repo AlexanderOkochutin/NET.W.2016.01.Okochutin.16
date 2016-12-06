@@ -333,9 +333,9 @@ namespace Task01.ORM
                             report.NumberOfOders++;
                             foreach (var orderDetail in orderHeader.OrderDetails)
                             {
-                                foreach (var priceController in orderDetail.Shawarma.PriceControllers)
+                                foreach (var source in orderDetail.Shawarma.PriceControllers.Where(s=>s.SellingPointId == sellPoint.SellingPointId && orderDetail.ShawarmaId == s.ShawarmaId))
                                 {
-                                    report.Profit += priceController.Price;
+                                    report.Profit += orderDetail.Quantity * source.Price;
                                 }
                             }
                         }
@@ -361,7 +361,7 @@ namespace Task01.ORM
                     {
                         foreach (var orderDetail in orderHeader.OrderDetails)
                         {
-                            time += orderDetail.Shawarma.CookingTime;
+                            time += orderDetail.Shawarma.CookingTime * orderDetail.Quantity;
                         }
                     }
                     report.CookingTime.Add(time);                  

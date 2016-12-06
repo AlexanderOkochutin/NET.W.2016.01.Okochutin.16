@@ -14,5 +14,10 @@ namespace Task01.ORM
         public string TitleOfSellingPoint { get; set; }
         public int NumberOfOders { get; set; }
         public decimal Profit { get; set; }
+
+        public SellPointReport()
+        {
+            SellerName = new List<string>();
+        }
     }
 }

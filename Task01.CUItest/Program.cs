@@ -11,7 +11,10 @@ namespace Task01.CUItest
     {
         static void Main(string[] args)
         {
-
+            DateTime start = new DateTime(10,10,10);
+            DateTime end = new DateTime(2020,10,10);
+            SellPointReport test = LINQqueries.GetReportFromSellPoint("minskShawarma", start, end);
+            SellerReport test2 = LINQqueries.GetSellerReport(start,end);
         }
     }
 }
